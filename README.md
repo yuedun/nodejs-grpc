@@ -30,3 +30,11 @@ Sample client:
 			conn.end();
 		});
 	});
+
+先启动srv_test.js
+> node srv_test.js
+
+在启动client_test.js
+> node client_test.js
+
+即可看到client_test.js调用到了srv_test.js中的函数

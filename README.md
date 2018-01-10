@@ -38,3 +38,14 @@ Sample client:
 > node client_test.js
 
 即可看到client_test.js调用到了srv_test.js中的函数
+
+ ### 基于grpc实现的远程服务
+
+[grpc](https://github.com/grpc/grpc-node)
+
+测试方法：
+先启动service.js
+> node service.js
+
+再启动client.js
+> node client.js

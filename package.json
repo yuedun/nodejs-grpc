@@ -1,48 +1,26 @@
 {
-   "name": "nodejs-light_rpc",
-   "version": "0.2.0",
-   "description": "Simple RPC server/client based on NodeJS native 'net' lib sockets.",
-   "keywords": [
-       "rpc"
-   ],
-   "maintainers": [
-       {
-           "name": "Lakotko Roman",
-           "email": "romulka@gmail.com"
-       }
-   ],
-   "bugs": {
-       "url": "https://github.com/romulka/nodejs-light_rpc/issues" 
-   },
-   "licenses": [
-       {
-           "type": "BSD",
-           "url": "http://opensource.org/licenses/bsd-license.php" 
-       } 
-   ],
-   "repositories": [
-       {
-           "type": "git",
-           "url": "git://github.com/romulka/nodejs-light_rpc.git" 
-       } 
-   ],
-   "main": "./index",   
-   "dependencies": {},
-   "devDependencies": {
-     "seq": "0.3.5"
-   },
-   "engines": { "node": ">=0.4.0" },
-     "eslintConfig": {
-      "ecmaFeatures": {
-          "forOf": true
-      },
-      "rules": {
-        "quotes": [1, "single"],
-        "no-underscore-dangle": false,
-        "no-use-before-define": false
-      },
-      "env": {
-          "node": true
-      }
-  }
-} 
+  "name": "nodejs-grpc",
+  "version": "1.0.0",
+  "description": "基于grpc的nodejs远程调用服务",
+  "main": "index.js",
+  "dependencies": {
+    "grpc": "^1.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuedun/nodejs-grpc.git"
+  },
+  "keywords": [
+    "grpc"
+  ],
+  "author": "yuedun",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yuedun/nodejs-grpc/issues"
+  },
+  "homepage": "https://github.com/yuedun/nodejs-grpc#readme"
+}

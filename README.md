@@ -44,8 +44,8 @@ Sample client:
 [grpc](https://github.com/grpc/grpc-node)
 
 测试方法：
-先启动service.js
-> node service.js
+先启动grpc-service.js
+> node grpc-service.js
 
-再启动client.js
-> node client.js
+再启动grpc-client.js
+> node grpc-client.js

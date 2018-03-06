@@ -8,35 +8,23 @@ interface GrpcService<T> {
 	[key: string]: T
 }
 
-let Service: GrpcService<string> = {};
-
+@service
 export class Hello {
-
-	constructor() {
-		var server = new grpc.Server();
-		server.addService(hello_proto.Greeter.service, Service);
-		server.bind('0.0.0.0:50051', grpc.ServerCredentials.createInsecure());
-		server.start();
-	}
-
 	/**
 	 * Implements the SayHello RPC method.
 	 */
-	@service
 	sayHello(call: any, callback: Function) {
 		console.log(call.request)
 		/** do something */
 		callback(null, { message: "请求参数：" + call.request.name + ",返回值：sayHello" });
 	}
 
-	@service
 	sayHello2(call: any, callback: Function) {
 		console.log(call.request)
 		/** do something */
 		callback(null, { message: "请求参数：" + call.request.name + ",返回值：openTheDoor" });
 	}
 
-	@service
 	sayHello3(call: any, callback: Function) {
 		console.log(call.request)
 		/** do something */
@@ -45,8 +33,17 @@ export class Hello {
 
 }
 
-function service(target: Hello, key: string, descriptor: any): void {
-	Service[key] = (<any>target)[key];
+function service(constructor: Function): void {
+	const Service: GrpcService<string> = {};
+	console.log(">>",typeof constructor);
+	let methods = Object.keys(constructor.prototype);
+	for(let method of methods){
+		Service[method] = (<any>constructor.prototype)[method];
+	}
+	var server = new grpc.Server();
+		server.addService(hello_proto.Greeter.service, Service);
+		server.bind('0.0.0.0:50051', grpc.ServerCredentials.createInsecure());
+		server.start();
 }
 
 new Hello()

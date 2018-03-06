@@ -9,13 +9,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var PROTO_PATH = __dirname + '/protos/helloworld.proto';
 var grpc = require('grpc');
 var hello_proto = grpc.load(PROTO_PATH).helloworld;
-var Service = {};
 var Hello = /** @class */ (function () {
     function Hello() {
-        var server = new grpc.Server();
-        server.addService(hello_proto.Greeter.service, Service);
-        server.bind('0.0.0.0:50051', grpc.ServerCredentials.createInsecure());
-        server.start();
     }
     /**
      * Implements the SayHello RPC method.
@@ -35,19 +30,23 @@ var Hello = /** @class */ (function () {
         /** do something */
         callback(null, { message: "请求参数：" + call.request.name + ",返回值：openTheDoorx" });
     };
-    __decorate([
+    Hello = __decorate([
         service
-    ], Hello.prototype, "sayHello", null);
-    __decorate([
-        service
-    ], Hello.prototype, "sayHello2", null);
-    __decorate([
-        service
-    ], Hello.prototype, "sayHello3", null);
+    ], Hello);
     return Hello;
 }());
 exports.Hello = Hello;
-function service(target, key, descriptor) {
-    Service[key] = target[key];
+function service(constructor) {
+    var Service = {};
+    console.log(">>", typeof constructor);
+    var methods = Object.keys(constructor.prototype);
+    for (var _i = 0, methods_1 = methods; _i < methods_1.length; _i++) {
+        var method = methods_1[_i];
+        Service[method] = constructor.prototype[method];
+    }
+    var server = new grpc.Server();
+    server.addService(hello_proto.Greeter.service, Service);
+    server.bind('0.0.0.0:50051', grpc.ServerCredentials.createInsecure());
+    server.start();
 }
 new Hello();

@@ -1,3 +1,6 @@
+/**
+ * 使用原生js写的grpc服务
+ */
 var PROTO_PATH = __dirname + '/protos/helloworld.proto';
 
 var grpc = require('grpc');

@@ -1,4 +1,7 @@
 
+/**
+ * 使用ts写的grpc服务
+ */
 const PROTO_PATH = __dirname + '/protos/helloworld.proto';
 const grpc = require('grpc');
 
@@ -34,11 +37,11 @@ export class Hello {
 }
 
 function service(constructor: Function): void {
-	const Service: GrpcService<string> = {};
+	const Service: GrpcService<Function> = {};
 	console.log(">>",typeof constructor);
 	let methods = Object.keys(constructor.prototype);
 	for(let method of methods){
-		Service[method] = (<any>constructor.prototype)[method];
+		Service[method] = (constructor.prototype)[method];
 	}
 	var server = new grpc.Server();
 		server.addService(hello_proto.Greeter.service, Service);

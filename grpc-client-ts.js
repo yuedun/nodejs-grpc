@@ -1,9 +1,11 @@
-var PROTO_PATH = __dirname + '/protos/helloworld.proto';
+"use strict";
 var grpc = require('grpc');
-var hello_proto = grpc.load(PROTO_PATH).helloworld;
+var protoLoader = require('@grpc/proto-loader');
+var packageDefinition = protoLoader.loadSync(__dirname + '/protos/helloworld.proto', {});
+var hello_proto = grpc.loadPackageDefinition(packageDefinition);
 var client;
 function main() {
-    client = new hello_proto.Greeter('localhost:50051', grpc.credentials.createInsecure());
+    client = new hello_proto.helloworld.Greeter('localhost:50051', grpc.credentials.createInsecure());
     client.sayHello({ name: "弥勒" }, function (err, response) {
         console.log('Greeting:', response.message);
     });

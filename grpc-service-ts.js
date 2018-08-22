@@ -6,9 +6,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var PROTO_PATH = __dirname + '/protos/helloworld.proto';
+/**
+ * 使用ts写的grpc服务
+ */
 var grpc = require('grpc');
-var hello_proto = grpc.load(PROTO_PATH).helloworld;
+var protoLoader = require('@grpc/proto-loader');
+var packageDefinition = protoLoader.loadSync(__dirname + '/protos/helloworld.proto', {});
+var hello_proto = grpc.loadPackageDefinition(packageDefinition);
+// const PROTO_PATH = __dirname + '/protos/helloworld.proto';
+// const hello_proto = grpc.load(PROTO_PATH).helloworld;//grpc.load: Use the @grpc/proto-loader module with grpc.loadPackageDefinition instead
 var Hello = /** @class */ (function () {
     function Hello() {
     }
@@ -38,15 +44,15 @@ var Hello = /** @class */ (function () {
 exports.Hello = Hello;
 function service(constructor) {
     var Service = {};
-    console.log(">>", typeof constructor);
     var methods = Object.keys(constructor.prototype);
     for (var _i = 0, methods_1 = methods; _i < methods_1.length; _i++) {
         var method = methods_1[_i];
-        Service[method] = constructor.prototype[method];
+        Service[method] = (constructor.prototype)[method];
     }
     var server = new grpc.Server();
-    server.addService(hello_proto.Greeter.service, Service);
+    server.addService(hello_proto.helloworld.Greeter.service, Service);
     server.bind('0.0.0.0:50051', grpc.ServerCredentials.createInsecure());
     server.start();
+    console.log("服务已启动");
 }
 new Hello();

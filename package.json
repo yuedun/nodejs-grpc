@@ -4,7 +4,7 @@
   "description": "基于grpc的nodejs远程调用服务",
   "main": "index.js",
   "dependencies": {
-    "grpc": "^1.8.0"
+    "grpc": "^1.14.1"
   },
   "devDependencies": {
     "@types/node": "^9.4.6"

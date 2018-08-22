@@ -1,7 +1,7 @@
-var PROTO_PATH = __dirname + '/protos/helloworld.proto';
-
 var grpc = require('grpc');
-var hello_proto = grpc.load(PROTO_PATH).helloworld;
+const protoLoader = require('@grpc/proto-loader');
+const packageDefinition = protoLoader.loadSync(__dirname + '/protos/helloworld.proto', {});
+const hello_proto = grpc.loadPackageDefinition(packageDefinition);
 
 interface GrpcService {
 	sayHello(params: any, callback: Function): void;
@@ -11,7 +11,7 @@ interface GrpcService {
 let client: GrpcService;
 
 function main() {
-	client = new hello_proto.Greeter('localhost:50051',
+	client = new hello_proto.helloworld.Greeter('localhost:50051',
 		grpc.credentials.createInsecure());
 
 	client.sayHello({ name: "弥勒" }, function (err: Error, response: any) {

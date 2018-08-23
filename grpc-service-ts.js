@@ -9,8 +9,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * 使用ts写的grpc服务
  */
-var grpc = require('grpc');
-var protoLoader = require('@grpc/proto-loader');
+var grpc = require("grpc");
+var protoLoader = require("@grpc/proto-loader");
 var packageDefinition = protoLoader.loadSync(__dirname + '/protos/helloworld.proto', {});
 var hello_proto = grpc.loadPackageDefinition(packageDefinition);
 // const PROTO_PATH = __dirname + '/protos/helloworld.proto';
@@ -53,6 +53,6 @@ function service(constructor) {
     server.addService(hello_proto.helloworld.Greeter.service, Service);
     server.bind('0.0.0.0:50051', grpc.ServerCredentials.createInsecure());
     server.start();
-    console.log("服务已启动");
+    console.log("服务已启动，port:50051");
 }
 new Hello();

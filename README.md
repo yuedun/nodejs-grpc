@@ -6,5 +6,5 @@
 启动服务
 > npm start
 
-再启动grpc-client-ts.js
+再启动客户端
 > node grpc-client-ts.js

@@ -6,9 +6,8 @@ import * as grpc from 'grpc'
 import * as protoLoader from "@grpc/proto-loader";
 const packageDefinition = protoLoader.loadSync(__dirname + '/protos/helloworld.proto', {});
 const hello_proto = grpc.loadPackageDefinition(packageDefinition);
-
-// const PROTO_PATH = __dirname + '/protos/helloworld.proto';
-// const hello_proto = grpc.load(PROTO_PATH).helloworld;//grpc.load: Use the @grpc/proto-loader module with grpc.loadPackageDefinition instead
+const packageDefinition2 = protoLoader.loadSync(__dirname + '/protos/helloworld2.proto', {});
+const hello_proto2 = grpc.loadPackageDefinition(packageDefinition2);
 
 @service
 export class Hello {
@@ -45,6 +44,7 @@ function service(constructor: Function): void {
 	}
 	var server = new grpc.Server();
 	server.addService(hello_proto.helloworld.Greeter.service, Service);
+	server.addService(hello_proto2.helloworld.Greeter2.service, Service);
 	server.bind('0.0.0.0:50051', grpc.ServerCredentials.createInsecure());
 	server.start();
 	console.log("服务已启动，port:50051");

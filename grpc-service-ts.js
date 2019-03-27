@@ -13,8 +13,8 @@ var grpc = require("grpc");
 var protoLoader = require("@grpc/proto-loader");
 var packageDefinition = protoLoader.loadSync(__dirname + '/protos/helloworld.proto', {});
 var hello_proto = grpc.loadPackageDefinition(packageDefinition);
-// const PROTO_PATH = __dirname + '/protos/helloworld.proto';
-// const hello_proto = grpc.load(PROTO_PATH).helloworld;//grpc.load: Use the @grpc/proto-loader module with grpc.loadPackageDefinition instead
+var packageDefinition2 = protoLoader.loadSync(__dirname + '/protos/helloworld2.proto', {});
+var hello_proto2 = grpc.loadPackageDefinition(packageDefinition2);
 var Hello = /** @class */ (function () {
     function Hello() {
     }
@@ -51,6 +51,7 @@ function service(constructor) {
     }
     var server = new grpc.Server();
     server.addService(hello_proto.helloworld.Greeter.service, Service);
+    server.addService(hello_proto2.helloworld.Greeter2.service, Service);
     server.bind('0.0.0.0:50051', grpc.ServerCredentials.createInsecure());
     server.start();
     console.log("服务已启动，port:50051");
